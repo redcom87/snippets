@@ -1,0 +1,47 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct node
+{
+    int data ;
+    struct node *left;
+    struct node *right;
+} node ;
+
+
+node *insert(int d)
+{
+    node *tmp = (node *)malloc(sizeof(node));
+    tmp->data = d ;
+    tmp->left = NULL ;
+    tmp->right = NULL ;
+    return tmp ;
+}
+
+int height(node *root)
+{
+    if(root == NULL)
+        return 0;
+    else
+    {
+        int lHeight = height(root->left);
+        int rHeight = height(root->right);
+
+        if(lHeight > rHeight)
+            return (lHeight + 1);
+        else
+            return (rHeight + 1);
+    }
+
+}
+
+int main()
+{
+    node *btree = insert(10);
+    btree->left = insert(5);
+    btree->right = insert(7);
+    btree->left->left = insert(2);
+    btree->left->right = insert(8);
+
+    printf("\nHeight Of Binary Tree : %d", height(btree));
+}
